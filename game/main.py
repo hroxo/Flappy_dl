@@ -1,25 +1,29 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    tab.py                                             :+:      :+:    :+:    #
+#    main.py                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hroxo <hroxo@student.42porto.com>          +#+  +:+       +#+         #
+#    By: hroxo <hroxo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/11/16 23:07:20 by hroxo             #+#    #+#              #
-#    Updated: 2025/11/16 23:23:54 by hroxo            ###   ########.fr        #
+#    Created: 2025/11/19 12:19:04 by hroxo             #+#    #+#              #
+#    Updated: 2025/11/19 13:32:11 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import pygame
-
-class screen:
-    def __init__(self, height=800, width=800):
+class DrawScreen:
+    def __init__(self, height=800, width=800, img="./game/contents/background.png"):
         self.height = height
         self.width = width
+        self.img = img
     def create_screen(self):
         pygame.init()
         screen = pygame.display.set_mode((self.width, self.height))
+
+        self.img = pygame.image.load(self.img)
+        self.img = pygame.transform.scale(self.img, (self.width ,self.height))
         clock = pygame.time.Clock()
+    
         running = True
 
         while running:
@@ -28,9 +32,9 @@ class screen:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-
             # fill the screen with a color to wipe away anything from last frame
             screen.fill("blue")
+            screen.blit(self.img, (0, 0))
 
             # RENDER YOUR GAME HERE
 
@@ -42,5 +46,5 @@ class screen:
         pygame.quit()
 
 
-tab = screen(720, 1280)
+tab = DrawScreen()
 tab.create_screen()
