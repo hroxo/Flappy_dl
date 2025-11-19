@@ -6,7 +6,7 @@
 #    By: hroxo <hroxo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 12:19:04 by hroxo             #+#    #+#              #
-#    Updated: 2025/11/19 15:15:08 by hroxo            ###   ########.fr        #
+#    Updated: 2025/11/19 18:01:41 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ class DrawScreen:
         self.img = pygame.image.load(self.img)
         self.img = pygame.transform.scale(self.img, (self.width ,self.height))
         clock = pygame.time.Clock()
-        birdimg = Birdy()
+        birdimg = Birdy(self.width, self.height)
         running = True
         i = 0
         while running:
