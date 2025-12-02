@@ -6,7 +6,7 @@
 #    By: hroxo <hroxo@student.42porto.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/26 18:09:16 by hroxo             #+#    #+#              #
-#    Updated: 2025/11/26 18:39:17 by hroxo            ###   ########.fr        #
+#    Updated: 2025/12/02 23:33:34 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,15 +36,21 @@ class Pipes:
 
         self.bottom_rect = self.bottom_pipe.get_rect()
         self.bottom_rect.left = self.x
-        self.bottom_rect.bottom = self.gap_y + self.gap_size
+        self.bottom_rect.top = self.gap_y + self.gap_size
+
+        self.passed = False
    
-        self.vel = -2
+        self.vel = -3
 
     def update(self):
         self.x += self.vel
 
+        if self.x > 266:
+            self.passed = True
+
         self.top_rect.x = int(self.x)
         self.bottom_rect.x = int(self.x)
+
     def draw(self, screen):
         screen.blit(self.top_pipe, self.top_rect)
         screen.blit(self.bottom_pipe, self.bottom_rect)
