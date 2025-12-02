@@ -6,7 +6,7 @@
 #    By: hroxo <hroxo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 12:19:04 by hroxo             #+#    #+#              #
-#    Updated: 2025/12/02 23:45:48 by hroxo            ###   ########.fr        #
+#    Updated: 2025/12/02 23:56:08 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ def game_over(bird, pipes, score):
 
     game_running = True
 
-    if not bird.rect.bottom >= 0 and bird.rect.top <= 0:
+    if not bird.rect.bottom >= 0 and bird.rect.top <= 800:
         game_running = False
         return game_running, score
     for pipe in pipes:
@@ -74,7 +74,7 @@ running = True
 
 time = 0
 score = 0
-status = True
+kill = False
 
 while running:
 
@@ -86,8 +86,9 @@ while running:
                 running = False
             else:
                 bird.jump()
-        elif event.type == pygame.QUIT: 
+        elif event.type == pygame.QUIT:
             running = False
+            kill = True
     bird.move()
     draw_components(screen, bird, time, width, height, pipe)
     status, score = game_over(bird, pipe, score)
@@ -99,4 +100,10 @@ while running:
     clock.tick(60)  # limits FPS to 60
 
 print(score)
+
+while kill == False:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            kill = True
+
 pygame.quit()
