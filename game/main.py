@@ -6,7 +6,7 @@
 #    By: hroxo <hroxo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 12:19:04 by hroxo             #+#    #+#              #
-#    Updated: 2025/12/02 23:56:08 by hroxo            ###   ########.fr        #
+#    Updated: 2025/12/03 19:17:40 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,25 +15,25 @@ from pygame.constants import K_SPACE, K_q
 from .bird import Birdy
 from .pipes import Pipes
 
-def draw_components(screen, bird, clock, x, y, pipe):
+def draw_components(screen, bird, clock, x, y, pipes):
 
     if clock == 0:
-        pipe.append(Pipes(x, y))
+        pipes.append(Pipes(x, y))
 
-    for i in range(len(pipe)):
-        pipe[i].update()
+    for pipe in pipes:
+        pipe.update()
 
     if clock != 0 and clock % 100 == 0:
         """A killer for the pipes that are no longer on screen"""
-        if pipe[0].top_rect.right < 0:
-            pipe.pop(0)
+        if pipes[0].top_rect.right < 0:
+            pipes.pop(0)
         """Create a new pipe to replace the older"""
-        pipe.append(Pipes(x, y))
+        pipes.append(Pipes(x, y))
 
     """A handy function to draw each element to the screen"""
 
-    for i in range(len(pipe)):
-        pipe[i].draw(screen)
+    for pipe in pipes:
+        pipe.draw(screen)
 
     bird.draw(screen)
 
