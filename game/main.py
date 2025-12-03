@@ -6,7 +6,7 @@
 #    By: hroxo <hroxo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 12:19:04 by hroxo             #+#    #+#              #
-#    Updated: 2025/12/03 19:44:47 by hroxo            ###   ########.fr        #
+#    Updated: 2025/12/03 22:29:54 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ import pygame
 from pygame.constants import K_SPACE, K_q
 from .bird import Birdy
 from .pipes import Pipes
+from .engine import Hooks
 
 def draw_components(screen, bird, clock, x, y, pipes):
 
@@ -21,7 +22,7 @@ def draw_components(screen, bird, clock, x, y, pipes):
         pipes.append(Pipes(x, y))
 
     for pipe in pipes:
-        pipe.update()
+        pipe.update(bird.x)
 
     if clock != 0 and clock % 100 == 0:
         """A killer for the pipes that are no longer on screen"""
@@ -49,9 +50,9 @@ def game_over(bird, pipes, score):
         if bird.rect.colliderect(pipe.top_rect) or bird.rect.colliderect(pipe.bottom_rect):
             game_running = False
 
-        if not pipe.passed and bird.rect.left > pipe.top_rect.right:
+        if pipe.passed == True and pipe.scored == False:
+            pipe.scored = True 
             score += 1
-            pipe.passed = True
 
     return game_running, score
 
@@ -75,19 +76,29 @@ time = 0
 score = 0
 kill = False
 
+input_handler = Hooks()
+
 while running:
 
     screen.blit(img, (0, 0))
     pygame.event.pump()
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            if event.key == K_q:
-                running = False
-            else:
-                bird.jump()
-        elif event.type == pygame.QUIT:
-            running = False
-            kill = True
+    
+    action = input_handler.listen_events()
+    
+    if "quit" in action:
+        running = False
+
+    if "jump" in action:
+        bird.jump()
+    # for event in pygame.event.get():
+    #     if event.type == pygame.KEYDOWN:
+    #         if event.key == K_q:
+    #             running = False
+    #         else:
+    #             bird.jump()
+    #     elif event.type == pygame.QUIT:
+    #         running = False
+    #         kill = True
     bird.move()
     draw_components(screen, bird, time, width, height, pipe)
     status, score = game_over(bird, pipe, score)
@@ -98,11 +109,14 @@ while running:
     time += 1
     clock.tick(60)  # limits FPS to 60
 
-print(score)
+print(f"\tNEW SCORE\n\n\t{score}")
 
 while kill == False:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.KEYDOWN:
+            if event.key == K_q:
+                kill = True
+        elif event.type == pygame.QUIT:
             kill = True
 
 pygame.quit()

@@ -6,7 +6,7 @@
 #    By: hroxo <hroxo@student.42porto.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/26 18:09:16 by hroxo             #+#    #+#              #
-#    Updated: 2025/12/02 23:33:34 by hroxo            ###   ########.fr        #
+#    Updated: 2025/12/03 21:16:38 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,13 +39,14 @@ class Pipes:
         self.bottom_rect.top = self.gap_y + self.gap_size
 
         self.passed = False
+        self.scored = False
    
         self.vel = -3
 
-    def update(self):
+    def update(self, limit):
         self.x += self.vel
 
-        if self.x > 266:
+        if self.x <= limit:
             self.passed = True
 
         self.top_rect.x = int(self.x)

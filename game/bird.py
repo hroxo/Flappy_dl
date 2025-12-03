@@ -6,7 +6,7 @@
 #    By: hroxo <hroxo@student.42porto.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 13:15:19 by hroxo             #+#    #+#              #
-#    Updated: 2025/12/02 23:21:01 by hroxo            ###   ########.fr        #
+#    Updated: 2025/12/03 21:13:54 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ class Birdy:
         self.image = self.image_original
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
-
+        
         """Data to scaler components"""
 
         self.vel = 0
