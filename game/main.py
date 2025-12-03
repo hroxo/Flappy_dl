@@ -6,7 +6,7 @@
 #    By: hroxo <hroxo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 12:19:04 by hroxo             #+#    #+#              #
-#    Updated: 2025/12/03 19:17:40 by hroxo            ###   ########.fr        #
+#    Updated: 2025/12/03 19:44:47 by hroxo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ def game_over(bird, pipes, score):
 
     game_running = True
 
-    if not bird.rect.bottom >= 0 and bird.rect.top <= 800:
+    if bird.rect.top <= 0 or bird.rect.bottom >= 800:
         game_running = False
         return game_running, score
     for pipe in pipes:
@@ -54,7 +54,6 @@ def game_over(bird, pipes, score):
             pipe.passed = True
 
     return game_running, score
-
 
 pygame.init()
 
